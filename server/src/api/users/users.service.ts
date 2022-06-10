@@ -15,22 +15,18 @@ export class UsersService {
    */
   public async createUser(body: CreateUserDTO): Promise<User> {
     const { email, password } = body;
-
-    const userExist = await this.usersRepository.find({ where: { email } });
+    const userExist = await this.usersRepository.findOne({ where: { email } });
     if (userExist) {
       throw new HttpException(
         `User with email '${email}' already exist.`,
         HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
-
     const hashedPassword = await bcrypt.hash(password, 10);
-
     const user = this.usersRepository.create({
       email,
       password: hashedPassword,
     });
-
     return this.usersRepository.save(user);
   }
 
