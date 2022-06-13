@@ -25,7 +25,7 @@ export class UsersController {
    */
   @Get('/:id')
   @UseGuards(JwtAuthGuard)
-  public getUser(@Param() id: number): Promise<User> {
+  public findUserById(@Param() id: number): Promise<User> {
     return this.usersService.findUserById(id);
   }
 
