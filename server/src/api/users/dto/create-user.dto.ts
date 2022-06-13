@@ -32,7 +32,7 @@ export class CreateUserDTO {
 
   @IsString()
   @IsOptional()
-  profile_photo?: string;
+  profilePhoto?: string;
 
   @IsString()
   @IsOptional()
@@ -40,7 +40,7 @@ export class CreateUserDTO {
 
   @IsString()
   @IsOptional()
-  twitter_handle?: string;
+  twitterHandle?: string;
 
   @IsString()
   @IsOptional()
@@ -48,5 +48,5 @@ export class CreateUserDTO {
 
   @IsString()
   @IsOptional()
-  github_handle?: string;
+  githubHandle?: string;
 }
