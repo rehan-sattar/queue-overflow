@@ -38,3 +38,6 @@ lerna-debug.log*
 # envrionment variables
 
 ./server/src/common/envs
+
+
+API_PLANNING
