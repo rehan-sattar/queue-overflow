@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Question } from '../questions/questions.entity';
 
 @Entity('users')
 export class User {
@@ -37,6 +39,11 @@ export class User {
 
   @Column({ nullable: true })
   githubHandle?: string;
+
+  @OneToMany(() => Question, (question) => question.user, {
+    cascade: true,
+  })
+  questions: Question[];
 
   @CreateDateColumn()
   createdAt: Date;

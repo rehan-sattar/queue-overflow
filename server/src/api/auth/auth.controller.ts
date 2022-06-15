@@ -26,8 +26,8 @@ export class AuthController {
     return this.authService.signup(signupDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('/profile')
+  @UseGuards(JwtAuthGuard)
   profile(@Request() req) {
     return req.user;
   }

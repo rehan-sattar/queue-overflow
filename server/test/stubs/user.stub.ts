@@ -14,5 +14,6 @@ export const createUserStub = (): User => {
     twitterHandle: 'Rehan_Sattar@26',
     createdAt: new Date('2022-06-14T07:47:52.050Z'),
     updatedAt: new Date('2022-06-14T07:47:52.050Z'),
+    questions: [],
   };
 };
