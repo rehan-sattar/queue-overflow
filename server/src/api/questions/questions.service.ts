@@ -18,6 +18,9 @@ export class QuestionsService {
 
   constructor(private readonly usersService: UsersService) {}
 
+  /**
+   * getQuestions
+   */
   getQuestions(): Promise<Question[]> {
     return this.questionsRepository.find({
       relations: {
@@ -26,6 +29,9 @@ export class QuestionsService {
     });
   }
 
+  /**
+   * getQuestionById
+   */
   async getQuestionById(id: number): Promise<Question> {
     const question = await this.questionsRepository.findOne({
       where: { id },
@@ -39,6 +45,9 @@ export class QuestionsService {
     return question;
   }
 
+  /**
+   * createQuestion
+   */
   async createQuestion(
     userId: number,
     createQuestionDto: CreateQuestionDto,
@@ -55,6 +64,9 @@ export class QuestionsService {
     return this.questionsRepository.save(question);
   }
 
+  /**
+   * updateQuestion
+   */
   async updateQuestion(
     userId: number,
     questionId: number,
@@ -74,6 +86,9 @@ export class QuestionsService {
     return this.questionsRepository.save(question);
   }
 
+  /**
+   * deleteQuestion
+   */
   async deleteQuestion(questionId: number, loggedInUser: User): Promise<void> {
     const question = await this.getQuestionById(questionId);
 
@@ -82,5 +97,14 @@ export class QuestionsService {
     }
 
     await this.questionsRepository.remove(question);
+  }
+
+  /**
+   * incrementQuestionViewsCount
+   */
+  async incrementQuestionViewsCount(questionId: number): Promise<void> {
+    const question = await this.getQuestionById(questionId);
+    question.views = question.views + 1;
+    await this.questionsRepository.save(question);
   }
 }

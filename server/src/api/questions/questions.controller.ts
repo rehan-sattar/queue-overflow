@@ -80,4 +80,16 @@ export class QuestionsController {
   ): Promise<void> {
     return this.questionsService.deleteQuestion(questionId, loggedInUser);
   }
+
+  /**
+   * incrementQuestionViewsCount
+   */
+  @Patch('/views/update/:questionId')
+  @UseGuards(JwtAuthGuard)
+  public incrementQuestionViewsCount(
+    @Param('questionId') questionId: number,
+  ): Promise<void> {
+    console.log('Here??');
+    return this.questionsService.incrementQuestionViewsCount(questionId);
+  }
 }
