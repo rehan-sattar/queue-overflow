@@ -3,12 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Answer } from '../answers/answers.entity';
 import { User } from '../users/users.entity';
 
-@Entity()
+@Entity('questions')
 export class Question {
   @PrimaryGeneratedColumn()
   id: number;
@@ -27,8 +29,10 @@ export class Question {
   @ManyToOne(() => User, (user) => user.questions, { onDelete: 'CASCADE' })
   user: User;
 
-  // Timestamps //
+  @OneToMany(() => Answer, (answer) => answer.question, { onDelete: 'CASCADE' })
+  answers: Answer[];
 
+  // Timestamps //
   @CreateDateColumn()
   createdAt: Date;
 
