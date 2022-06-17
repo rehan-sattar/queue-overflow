@@ -1,16 +1,31 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { getEnvPath } from './common/helper/env.helper';
-import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
 import { ApiModule } from './api/api.module';
 
-const envFilePath = getEnvPath(`${__dirname}/common/envs`);
-
+const ENVIRONMENT = process.env.ENVIRONMENT;
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath, isGlobal: true }),
-    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.stage.${ENVIRONMENT}`,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        return {
+          type: 'postgres',
+          autoLoadEntities: true,
+          synchronize: true,
+          host: configService.get('DB_HOST'),
+          port: configService.get('DB_PORT'),
+          username: configService.get('DB_USERNAME'),
+          password: configService.get('DB_PASSWORD'),
+          database: configService.get('DB_NAME'),
+        };
+      },
+    }),
     ApiModule,
   ],
 })
