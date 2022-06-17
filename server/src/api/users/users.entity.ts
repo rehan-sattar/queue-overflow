@@ -7,6 +7,8 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Question } from '../questions/questions.entity';
+import { AnswerComment } from '../comments/answer-comments/answer-comments.entity';
+import { QuestionComment } from '../comments/question-comments/question-comments.entity';
 
 @Entity('users')
 export class User {
@@ -44,6 +46,16 @@ export class User {
     cascade: true,
   })
   questions: Question[];
+
+  @OneToMany(() => AnswerComment, (comment) => comment.answer, {
+    cascade: true,
+  })
+  answerComments: AnswerComment[];
+
+  @OneToMany(() => QuestionComment, (comment) => comment.user, {
+    cascade: true,
+  })
+  questionComments: QuestionComment[];
 
   @CreateDateColumn()
   createdAt: Date;

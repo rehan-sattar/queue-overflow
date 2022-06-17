@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Answer } from '../answers/answers.entity';
 import { User } from '../users/users.entity';
+import { QuestionComment } from '../comments/question-comments/question-comments.entity';
 
 @Entity('questions')
 export class Question {
@@ -31,6 +32,11 @@ export class Question {
 
   @OneToMany(() => Answer, (answer) => answer.question, { onDelete: 'CASCADE' })
   answers: Answer[];
+
+  @OneToMany(() => QuestionComment, (comment) => comment.question, {
+    onDelete: 'CASCADE',
+  })
+  comments: QuestionComment[];
 
   // Timestamps //
   @CreateDateColumn()

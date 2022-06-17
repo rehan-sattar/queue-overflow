@@ -11,5 +11,6 @@ import { QuestionsModule } from '../questions/questions.module';
   imports: [QuestionsModule, UsersModule, TypeOrmModule.forFeature([Answer])],
   controllers: [AnswersController],
   providers: [AnswersService],
+  exports: [AnswersService],
 })
 export class AnswersModule {}
