@@ -27,15 +27,13 @@ export class Question {
 
   // Relationships //
 
-  @ManyToOne(() => User, (user) => user.questions, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.questions)
   user: User;
 
-  @OneToMany(() => Answer, (answer) => answer.question, { onDelete: 'CASCADE' })
+  @OneToMany(() => Answer, (answer) => answer.question)
   answers: Answer[];
 
-  @OneToMany(() => QuestionComment, (comment) => comment.question, {
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(() => QuestionComment, (comment) => comment.question, {})
   comments: QuestionComment[];
 
   // Timestamps //

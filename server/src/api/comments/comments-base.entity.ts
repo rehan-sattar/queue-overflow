@@ -1,11 +1,13 @@
 import {
   Column,
   CreateDateColumn,
+  Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-export class CommentBaseEntity {
+@Entity()
+export abstract class CommentBaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
