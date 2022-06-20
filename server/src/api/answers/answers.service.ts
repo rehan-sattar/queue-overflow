@@ -4,7 +4,6 @@ import { Answer } from './answers.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUpdateAnswerDto } from './dto/create-update-answer.dto';
 import { QuestionsService } from '../questions/questions.service';
-import { UsersService } from '../users/users.service';
 import { User } from '../users/users.entity';
 
 @Injectable()
@@ -12,10 +11,7 @@ export class AnswersService {
   @InjectRepository(Answer)
   private readonly answersRepository: Repository<Answer>;
 
-  constructor(
-    private questionsService: QuestionsService,
-    private readonly usersService: UsersService,
-  ) {}
+  constructor(private questionsService: QuestionsService) {}
 
   /**
    * getAnswers
@@ -40,6 +36,18 @@ export class AnswersService {
       where: { id: answerId, question: { id: questionId } },
       relations: { user: true, question: true },
     });
+    if (!answer) throw new NotFoundException(`The answer does not exist.`);
+    return answer;
+  }
+
+  /**
+   * getAnswerById
+   */
+  public async getAnswerById(answerId: number) {
+    const answer = await this.answersRepository.findOne({
+      where: { id: answerId },
+    });
+
     if (!answer) throw new NotFoundException(`The answer does not exist.`);
     return answer;
   }
