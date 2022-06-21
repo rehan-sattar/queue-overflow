@@ -5,9 +5,13 @@ import { Question } from 'src/api/questions/questions.entity';
 
 @Entity('question_comments')
 export class QuestionComment extends CommentBaseEntity {
-  @ManyToOne(() => User, (user) => user.questionComments)
+  @ManyToOne(() => User, (user) => user.questionComments, {
+    onDelete: 'CASCADE',
+  })
   user: User;
 
-  @ManyToOne(() => Question, (question) => question.comments)
+  @ManyToOne(() => Question, (question) => question.comments, {
+    onDelete: 'CASCADE',
+  })
   question: Question;
 }

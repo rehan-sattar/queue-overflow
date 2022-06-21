@@ -19,14 +19,16 @@ export class Answer {
   @ManyToOne(() => User)
   user: User;
 
-  @ManyToOne(() => Question, (question) => question.answers)
+  @ManyToOne(() => Question, (question) => question.answers, {
+    onDelete: 'CASCADE',
+  })
   question: Question;
 
   @Column()
   contents: string;
 
   @OneToMany(() => AnswerComment, (comment) => comment.answer, {
-    cascade: true,
+    onDelete: 'CASCADE',
   })
   comments: AnswerComment[];
 
