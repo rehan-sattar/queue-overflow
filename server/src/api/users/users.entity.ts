@@ -5,7 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToMany,
 } from 'typeorm';
+import { Tag } from '../tags/tags-base.entity';
 import { Question } from '../questions/questions.entity';
 import { AnswerComment } from '../comments/answer-comments/answer-comments.entity';
 import { QuestionComment } from '../comments/question-comments/question-comments.entity';
@@ -56,6 +58,9 @@ export class User {
     cascade: true,
   })
   questionComments: QuestionComment[];
+
+  @ManyToMany(() => Tag)
+  tags: Tag[];
 
   @CreateDateColumn()
   createdAt: Date;

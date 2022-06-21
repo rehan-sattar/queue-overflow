@@ -2,13 +2,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Answer } from '../answers/answers.entity';
 import { User } from '../users/users.entity';
+import { Tag } from '../tags/tags-base.entity';
+import { Answer } from '../answers/answers.entity';
 import { QuestionComment } from '../comments/question-comments/question-comments.entity';
 
 @Entity('questions')
@@ -35,6 +37,9 @@ export class Question {
 
   @OneToMany(() => QuestionComment, (comment) => comment.question, {})
   comments: QuestionComment[];
+
+  @ManyToMany(() => Tag)
+  tag: Tag;
 
   // Timestamps //
   @CreateDateColumn()
