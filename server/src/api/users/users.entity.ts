@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { Tag } from '../tags/tags-base.entity';
 import { Question } from '../questions/questions.entity';
@@ -60,6 +61,7 @@ export class User {
   questionComments: QuestionComment[];
 
   @ManyToMany(() => Tag)
+  @JoinTable({ name: 'user_tags' })
   tags: Tag[];
 
   @CreateDateColumn()

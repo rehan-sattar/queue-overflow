@@ -11,9 +11,12 @@ import {
 } from '@nestjs/common';
 
 import { Tag } from './tags-base.entity';
-import { CreateTagDto } from './dto/create-tag.dto';
+import { User } from '../users/users.entity';
 import { TagsService } from './tags.service';
+import { CreateTagDto } from './dto/create-tag.dto';
+import { AssignTagsDto } from './dto/user-tags.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { GetLoggedInUser } from '../auth/get-logged-in-user.decorator';
 
 @Controller('tags')
 export class TagsController {
@@ -47,5 +50,39 @@ export class TagsController {
   @UseGuards(JwtAuthGuard)
   deleteTagById(@Param('id') id: number): Promise<void> {
     return this.tagsService.deleteTagById(id);
+  }
+
+  /**
+   * Assign tags to user
+   */
+  @Post('/user/:userId')
+  @UseGuards(JwtAuthGuard)
+  assignTagsToUser(
+    @Param('userId') userId: number,
+    @Body() assignTagsDto: AssignTagsDto,
+    @GetLoggedInUser() loggedInUser: User,
+  ) {
+    return this.tagsService.assignTagsToUser(
+      userId,
+      assignTagsDto,
+      loggedInUser,
+    );
+  }
+
+  /**
+   * Assign tags to question
+   */
+  @Post('/question/:questionId')
+  @UseGuards(JwtAuthGuard)
+  assignTagsToQuestion(
+    @Param('questionId') questionId: number,
+    @Body() assignTagsDto: AssignTagsDto,
+    @GetLoggedInUser() loggedInUser: User,
+  ) {
+    return this.tagsService.assignTagsToQuestion(
+      questionId,
+      assignTagsDto,
+      loggedInUser,
+    );
   }
 }

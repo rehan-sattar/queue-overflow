@@ -3,17 +3,38 @@ import {
   HttpStatus,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Tag } from './tags-base.entity';
 import { CreateTagDto } from './dto/create-tag.dto';
+import { AssignTagsDto } from './dto/user-tags.dto';
+import { User } from '../users/users.entity';
+import { UsersService } from '../users/users.service';
+import { UpdateUserDTO } from '../users/dto/update-user.dto';
+import { Question } from '../questions/questions.entity';
+import { QuestionsService } from '../questions/questions.service';
+import { UpdateQuestionDto } from '../questions/dto/update-question.dto';
 
 @Injectable()
 export class TagsService {
   @InjectRepository(Tag)
   private readonly tagsRepository: Repository<Tag>;
+
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly questionsService: QuestionsService,
+  ) {}
+
+  private async getTagsByIds(tagIds: number[]) {
+    const tags = tagIds.reduce((tags, currentTagId) => {
+      const tag = this.getTagById(currentTagId);
+      return [...tags, tag];
+    }, []);
+    return await Promise.all<Tag[]>(tags);
+  }
 
   /**
    * getAllTags
@@ -67,5 +88,41 @@ export class TagsService {
     const tag = await this.getTagById(id);
     await this.tagsRepository.remove(tag);
     return;
+  }
+
+  /**
+   * assignTagsToUser
+   */
+  public async assignTagsToUser(
+    userId: number,
+    assignTagsDto: AssignTagsDto,
+    loggedInUser: User,
+  ): Promise<User> {
+    if (userId !== loggedInUser.id) {
+      throw new UnauthorizedException();
+    }
+    const tags = await this.getTagsByIds(assignTagsDto.tagIds);
+    const updateUserDto = new UpdateUserDTO();
+    updateUserDto.tags = tags;
+    return this.usersService.updateUser(userId, updateUserDto, loggedInUser);
+  }
+
+  /**
+   * assignTagsToQuestion
+   */
+  public async assignTagsToQuestion(
+    questionId: number,
+    assignTagsDto: AssignTagsDto,
+    loggedInUser: User,
+  ): Promise<Question> {
+    const tags = await this.getTagsByIds(assignTagsDto.tagIds);
+    const updateQuestionDto = new UpdateQuestionDto();
+    updateQuestionDto.tags = tags;
+    return this.questionsService.updateQuestion(
+      loggedInUser.id,
+      questionId,
+      updateQuestionDto,
+      loggedInUser,
+    );
   }
 }

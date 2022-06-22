@@ -97,6 +97,7 @@ export class UsersService {
     user.twitterHandle = updateUserDto.twitterHandle || user.twitterHandle;
     user.githubHandle = updateUserDto.githubHandle || user.githubHandle;
     user.website = updateUserDto.website || user.website;
+    user.tags = updateUserDto.tags || user.tags;
 
     this.logger.log(`Updated user: ${JSON.stringify(user)}`);
     return this.usersRepository.save(user);

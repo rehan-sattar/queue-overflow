@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -18,11 +17,9 @@ export class Tag {
   name: string;
 
   @ManyToMany(() => Question)
-  @JoinTable()
   question: Question;
 
   @ManyToMany(() => User)
-  @JoinTable()
   user: User;
 
   @CreateDateColumn()

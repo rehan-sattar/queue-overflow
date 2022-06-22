@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -39,7 +40,8 @@ export class Question {
   comments: QuestionComment[];
 
   @ManyToMany(() => Tag)
-  tag: Tag;
+  @JoinTable({ name: 'question_tags' })
+  tags: Tag[];
 
   // Timestamps //
   @CreateDateColumn()
