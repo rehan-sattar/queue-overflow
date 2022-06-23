@@ -13,6 +13,7 @@ import { User } from '../users/users.entity';
 import { Tag } from '../tags/tags-base.entity';
 import { Answer } from '../answers/answers.entity';
 import { QuestionComment } from '../comments/question-comments/question-comments.entity';
+import { QuestionVote } from '../votes/question-votes/question-votes.entity';
 
 @Entity('questions')
 export class Question {
@@ -42,6 +43,9 @@ export class Question {
   @ManyToMany(() => Tag)
   @JoinTable({ name: 'question_tags' })
   tags: Tag[];
+
+  @OneToMany(() => QuestionVote, (vote) => vote.question)
+  votes: QuestionVote[];
 
   // Timestamps //
   @CreateDateColumn()
