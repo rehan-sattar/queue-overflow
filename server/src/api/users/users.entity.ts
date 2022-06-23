@@ -13,6 +13,7 @@ import { Question } from '../questions/questions.entity';
 import { AnswerComment } from '../comments/answer-comments/answer-comments.entity';
 import { QuestionComment } from '../comments/question-comments/question-comments.entity';
 import { QuestionFollowing } from '../followings/question-following/question-following.entity';
+import { AnswerFollowing } from '../followings/answer-following/answer-following.entity';
 
 @Entity('users')
 export class User {
@@ -67,6 +68,9 @@ export class User {
 
   @OneToMany(() => QuestionFollowing, (following) => following.follower)
   followingQuestions: QuestionFollowing[];
+
+  @OneToMany(() => AnswerFollowing, (following) => following.follower)
+  followingAnswers: AnswerFollowing[];
 
   @CreateDateColumn()
   createdAt: Date;

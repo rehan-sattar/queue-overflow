@@ -45,10 +45,14 @@ export class Question {
   @JoinTable({ name: 'question_tags' })
   tags: Tag[];
 
-  @OneToMany(() => QuestionVote, (vote) => vote.question)
+  @OneToMany(() => QuestionVote, (vote) => vote.question, {
+    onDelete: 'CASCADE',
+  })
   votes: QuestionVote[];
 
-  @OneToMany(() => QuestionFollowing, (following) => following.question)
+  @OneToMany(() => QuestionFollowing, (following) => following.question, {
+    onDelete: 'CASCADE',
+  })
   followers: QuestionFollowing[];
 
   // Timestamps //

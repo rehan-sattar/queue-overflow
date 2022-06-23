@@ -11,6 +11,7 @@ import { User } from '../users/users.entity';
 import { Question } from '../questions/questions.entity';
 import { AnswerComment } from '../comments/answer-comments/answer-comments.entity';
 import { AnswerVote } from '../votes/answer-votes/answer-votes.entity';
+import { AnswerFollowing } from '../followings/answer-following/answer-following.entity';
 
 @Entity('answers')
 export class Answer {
@@ -35,6 +36,11 @@ export class Answer {
 
   @OneToMany(() => AnswerVote, (vote) => vote.answer)
   votes: AnswerVote[];
+
+  @OneToMany(() => AnswerFollowing, (following) => following.answer, {
+    onDelete: 'CASCADE',
+  })
+  followers: AnswerFollowing[];
 
   @CreateDateColumn()
   createdAt: Date;

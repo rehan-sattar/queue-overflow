@@ -13,6 +13,17 @@ export class AnswersService {
 
   constructor(private questionsService: QuestionsService) {}
 
+  private selectedAnswerFields = {
+    id: true,
+    contents: true,
+    createdAt: true,
+    updatedAt: true,
+    question: { id: true },
+    comments: true,
+    user: { id: true, email: true },
+    followers: { follower: { id: true, email: true } },
+  };
+
   /**
    * getAnswers
    */
@@ -21,7 +32,8 @@ export class AnswersService {
     await this.questionsService.getQuestionById(questionId);
     return this.answersRepository.find({
       where: { question: { id: questionId } },
-      relations: { question: true, user: true },
+      relations: { question: true, user: true, followers: { follower: true } },
+      select: this.selectedAnswerFields,
     });
   }
 
@@ -34,7 +46,8 @@ export class AnswersService {
   ): Promise<Answer> {
     const answer = await this.answersRepository.findOne({
       where: { id: answerId, question: { id: questionId } },
-      relations: { user: true, question: true },
+      relations: { user: true, question: true, followers: { follower: true } },
+      select: this.selectedAnswerFields,
     });
     if (!answer) throw new NotFoundException(`The answer does not exist.`);
     return answer;
@@ -46,7 +59,8 @@ export class AnswersService {
   public async getAnswerById(answerId: number) {
     const answer = await this.answersRepository.findOne({
       where: { id: answerId },
-      relations: { user: true },
+      relations: { user: true, followers: { follower: true } },
+      select: this.selectedAnswerFields,
     });
 
     if (!answer) throw new NotFoundException(`The answer does not exist.`);
@@ -98,12 +112,7 @@ export class AnswersService {
 
   private async getUserAnswer(answerId: number, user: User): Promise<Answer> {
     const answer = await this.answersRepository.findOne({
-      where: {
-        id: answerId,
-        user: {
-          id: user.id,
-        },
-      },
+      where: { id: answerId, user: { id: user.id } },
     });
 
     if (!answer) {

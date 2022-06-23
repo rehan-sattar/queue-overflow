@@ -25,6 +25,9 @@ export class QuestionsService {
     return this.questionsRepository.find({
       relations: {
         user: true,
+        followers: {
+          follower: true,
+        },
       },
     });
   }
