@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QuestionsService } from 'src/api/questions/questions.service';
 import { User } from 'src/api/users/users.entity';
@@ -36,6 +31,7 @@ export class QuestionVotesService {
     });
     if (existingVote) {
       await this.questionVotes.remove(existingVote);
+      return;
     }
     const newVote = this.questionVotes.create({
       voter: loggedInUser,

@@ -1,4 +1,4 @@
-import { Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Controller, HttpCode, Param, Post, UseGuards } from '@nestjs/common';
 import { GetLoggedInUser } from 'src/api/auth/get-logged-in-user.decorator';
 import { JwtAuthGuard } from 'src/api/auth/jwt-auth.guard';
 import { User } from 'src/api/users/users.entity';
@@ -10,6 +10,7 @@ export class QuestionVotesController {
 
   @Post('/:questionId')
   @UseGuards(JwtAuthGuard)
+  @HttpCode(200)
   public voteQuestion(
     @Param('questionId') questionId: number,
     @GetLoggedInUser() loggedInUser: User,

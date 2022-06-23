@@ -46,6 +46,7 @@ export class AnswersService {
   public async getAnswerById(answerId: number) {
     const answer = await this.answersRepository.findOne({
       where: { id: answerId },
+      relations: { user: true },
     });
 
     if (!answer) throw new NotFoundException(`The answer does not exist.`);

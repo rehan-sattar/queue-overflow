@@ -10,6 +10,7 @@ import {
 import { User } from '../users/users.entity';
 import { Question } from '../questions/questions.entity';
 import { AnswerComment } from '../comments/answer-comments/answer-comments.entity';
+import { AnswerVote } from '../votes/answer-votes/answer-votes.entity';
 
 @Entity('answers')
 export class Answer {
@@ -31,6 +32,9 @@ export class Answer {
     onDelete: 'CASCADE',
   })
   comments: AnswerComment[];
+
+  @OneToMany(() => AnswerVote, (vote) => vote.answer)
+  votes: AnswerVote[];
 
   @CreateDateColumn()
   createdAt: Date;
