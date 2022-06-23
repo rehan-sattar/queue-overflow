@@ -6,6 +6,7 @@ import { AnswersModule } from './answers/answers.module';
 import { CommentsModule } from './comments/comments.module';
 import { TagsModule } from './tags/tags.module';
 import { VotesModule } from './votes/votes.module';
+import { FollowingsModule } from './followings/followings.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { VotesModule } from './votes/votes.module';
     CommentsModule,
     TagsModule,
     VotesModule,
+    FollowingsModule,
   ],
 })
 export class ApiModule {}

@@ -12,6 +12,7 @@ import { Tag } from '../tags/tags-base.entity';
 import { Question } from '../questions/questions.entity';
 import { AnswerComment } from '../comments/answer-comments/answer-comments.entity';
 import { QuestionComment } from '../comments/question-comments/question-comments.entity';
+import { QuestionFollowing } from '../followings/question-following/question-following.entity';
 
 @Entity('users')
 export class User {
@@ -63,6 +64,9 @@ export class User {
   @ManyToMany(() => Tag)
   @JoinTable({ name: 'user_tags' })
   tags: Tag[];
+
+  @OneToMany(() => QuestionFollowing, (following) => following.follower)
+  followingQuestions: QuestionFollowing[];
 
   @CreateDateColumn()
   createdAt: Date;

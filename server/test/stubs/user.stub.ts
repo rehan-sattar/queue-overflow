@@ -18,5 +18,6 @@ export const createUserStub = (): User => {
     questionComments: [],
     answerComments: [],
     tags: [],
+    followingQuestions: [],
   };
 };
