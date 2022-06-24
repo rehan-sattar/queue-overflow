@@ -87,9 +87,6 @@ export class UsersService {
 
     const user = await this.findUserById(id);
 
-    this.logger.log(`Updating user with the id: ${id}`);
-    this.logger.log(`Previous user: ${JSON.stringify(user)}`);
-
     user.username = updateUserDto.username || user.username;
     user.bio = updateUserDto.bio || user.bio;
     user.profilePhoto = updateUserDto.profilePhoto || user.profilePhoto;

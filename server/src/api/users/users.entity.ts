@@ -9,6 +9,7 @@ import {
   JoinTable,
 } from 'typeorm';
 import { Tag } from '../tags/tags-base.entity';
+import { Badge } from '../badges/badges.entity';
 import { Question } from '../questions/questions.entity';
 import { AnswerComment } from '../comments/answer-comments/answer-comments.entity';
 import { QuestionComment } from '../comments/question-comments/question-comments.entity';
@@ -71,6 +72,10 @@ export class User {
 
   @OneToMany(() => AnswerFollowing, (following) => following.follower)
   followingAnswers: AnswerFollowing[];
+
+  @ManyToMany(() => Badge, (badge) => badge.user, { onDelete: 'CASCADE' })
+  @JoinTable({ name: 'user_badges' })
+  badges: Badge[];
 
   @CreateDateColumn()
   createdAt: Date;
