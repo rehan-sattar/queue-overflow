@@ -668,7 +668,7 @@
     "webpack" "5.72.1"
     "webpack-node-externals" "3.0.0"
 
-"@nestjs/common@^6.0.0 || ^7.0.0 || ^8.0.0", "@nestjs/common@^7.0.0 || ^8.0.0", "@nestjs/common@^8.0.0":
+"@nestjs/common@^6.0.0 || ^7.0.0 || ^8.0.0", "@nestjs/common@^7.0.0 || ^8.0.0", "@nestjs/common@^7.0.8 || ^8.0.0", "@nestjs/common@^8.0.0":
   "integrity" "sha512-INp1ERDrLiQ4GwRc3zotTwBLZm2sIwcJwnBE2yXqsth17KijmoVmY8UB5Tares0IlwjsqlRFWkCX8uWE5rzbSA=="
   "resolved" "https://registry.npmjs.org/@nestjs/common/-/common-8.4.6.tgz"
   "version" "8.4.6"
@@ -709,6 +709,11 @@
     "@types/jsonwebtoken" "8.5.8"
     "jsonwebtoken" "8.5.1"
 
+"@nestjs/mapped-types@1.0.1":
+  "integrity" "sha512-NFvofzSinp00j5rzUd4tf+xi9od6383iY0JP7o0Bnu1fuItAUkWBgc4EKuIQ3D+c2QI3i9pG1kDWAeY27EMGtg=="
+  "resolved" "https://registry.npmjs.org/@nestjs/mapped-types/-/mapped-types-1.0.1.tgz"
+  "version" "1.0.1"
+
 "@nestjs/passport@^8.2.1":
   "integrity" "sha512-Ytbn8j7WZ4INmEntOpdJY1isTgdQqZkx5ADz8zsZ5wAp0t8tc5GF/A+GlXlmn9/yRPwZHSbmHpv7Qt2EIiNnrw=="
   "resolved" "https://registry.npmjs.org/@nestjs/passport/-/passport-8.2.2.tgz"
@@ -735,6 +740,15 @@
     "fs-extra" "10.1.0"
     "jsonc-parser" "3.0.0"
     "pluralize" "8.0.0"
+
+"@nestjs/swagger@^5.2.1":
+  "integrity" "sha512-7dNa08WCnTsW/oAk3Ujde+z64JMfNm19DhpXasFR8oJp/9pggYAbYU927HpA+GJsSFJX6adjIRZsCKUqaGWznw=="
+  "resolved" "https://registry.npmjs.org/@nestjs/swagger/-/swagger-5.2.1.tgz"
+  "version" "5.2.1"
+  dependencies:
+    "@nestjs/mapped-types" "1.0.1"
+    "lodash" "4.17.21"
+    "path-to-regexp" "3.2.0"
 
 "@nestjs/testing@^8.0.0":
   "integrity" "sha512-uGRNQ0iWIHqjz5CLxQCTtQ3dB1KyPfkHXnko5mBwKk/iBTiACmll61rVt89Wh8RM+w0bmvCHp9sacNI7IynESg=="
@@ -1788,12 +1802,12 @@
   "resolved" "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz"
   "version" "1.2.2"
 
-"class-transformer@*", "class-transformer@^0.5.1":
+"class-transformer@*", "class-transformer@^0.2.0 || ^0.3.0 || ^0.4.0 || ^0.5.0", "class-transformer@^0.5.1":
   "integrity" "sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw=="
   "resolved" "https://registry.npmjs.org/class-transformer/-/class-transformer-0.5.1.tgz"
   "version" "0.5.1"
 
-"class-validator@*", "class-validator@^0.13.2":
+"class-validator@*", "class-validator@^0.11.1 || ^0.12.0 || ^0.13.0", "class-validator@^0.13.2":
   "integrity" "sha512-yBUcQy07FPlGzUjoLuUfIOXzgynnQPPruyK1Ge2B74k9ROwnle1E+NxLWnUv5OLU8hA/qL5leAE9XnXq3byaBw=="
   "resolved" "https://registry.npmjs.org/class-validator/-/class-validator-0.13.2.tgz"
   "version" "0.13.2"
@@ -2411,7 +2425,7 @@
     "jest-message-util" "^28.1.1"
     "jest-util" "^28.1.1"
 
-"express@4.18.1":
+"express@>=4.0.0", "express@4.18.1":
   "integrity" "sha512-zZBcOX9TfehHQhtupq57OF8lFZ3UZi08Y97dwFCkD8p9d/d2Y3M+ykKcwaMDEL+4qyUolgBDX6AblpR3fL212Q=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.18.1.tgz"
   "version" "4.18.1"
@@ -4854,6 +4868,18 @@
   "integrity" "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w=="
   "resolved" "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   "version" "1.0.0"
+
+"swagger-ui-dist@>=4.11.0":
+  "integrity" "sha512-B0Iy2ueXtbByE6OOyHTi3lFQkpPi/L7kFOKFeKTr44za7dJIELa9kzaca6GkndCgpK1QTjArnoXG+aUy0XQp1w=="
+  "resolved" "https://registry.npmjs.org/swagger-ui-dist/-/swagger-ui-dist-4.12.0.tgz"
+  "version" "4.12.0"
+
+"swagger-ui-express@*", "swagger-ui-express@^4.4.0":
+  "integrity" "sha512-1CzRkHG386VQMVZK406jcpgnW2a9A5A/NiAjKhsFTQqUBWRF+uGbXTU/mA7WSV3mTzyOQDvjBdWP/c2qd5lqKw=="
+  "resolved" "https://registry.npmjs.org/swagger-ui-express/-/swagger-ui-express-4.4.0.tgz"
+  "version" "4.4.0"
+  dependencies:
+    "swagger-ui-dist" ">=4.11.0"
 
 "symbol-observable@4.0.0":
   "integrity" "sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ=="
