@@ -87,9 +87,6 @@ export class UsersService {
 
     const user = await this.findUserById(id);
 
-    this.logger.log(`Updating user with the id: ${id}`);
-    this.logger.log(`Previous user: ${JSON.stringify(user)}`);
-
     user.username = updateUserDto.username || user.username;
     user.bio = updateUserDto.bio || user.bio;
     user.profilePhoto = updateUserDto.profilePhoto || user.profilePhoto;
@@ -97,6 +94,7 @@ export class UsersService {
     user.twitterHandle = updateUserDto.twitterHandle || user.twitterHandle;
     user.githubHandle = updateUserDto.githubHandle || user.githubHandle;
     user.website = updateUserDto.website || user.website;
+    user.tags = updateUserDto.tags || user.tags;
 
     this.logger.log(`Updated user: ${JSON.stringify(user)}`);
     return this.usersRepository.save(user);

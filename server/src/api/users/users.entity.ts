@@ -5,10 +5,16 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
+import { Tag } from '../tags/tags-base.entity';
+import { Badge } from '../badges/badges.entity';
 import { Question } from '../questions/questions.entity';
 import { AnswerComment } from '../comments/answer-comments/answer-comments.entity';
 import { QuestionComment } from '../comments/question-comments/question-comments.entity';
+import { QuestionFollowing } from '../followings/question-following/question-following.entity';
+import { AnswerFollowing } from '../followings/answer-following/answer-following.entity';
 
 @Entity('users')
 export class User {
@@ -56,6 +62,20 @@ export class User {
     cascade: true,
   })
   questionComments: QuestionComment[];
+
+  @ManyToMany(() => Tag)
+  @JoinTable({ name: 'user_tags' })
+  tags: Tag[];
+
+  @OneToMany(() => QuestionFollowing, (following) => following.follower)
+  followingQuestions: QuestionFollowing[];
+
+  @OneToMany(() => AnswerFollowing, (following) => following.follower)
+  followingAnswers: AnswerFollowing[];
+
+  @ManyToMany(() => Badge, (badge) => badge.user, { onDelete: 'CASCADE' })
+  @JoinTable({ name: 'user_badges' })
+  badges: Badge[];
 
   @CreateDateColumn()
   createdAt: Date;

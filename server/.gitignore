@@ -39,5 +39,6 @@ lerna-debug.log*
 
 ./server/src/common/envs
 
+.env.**
 
 API_PLANNING

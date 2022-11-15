@@ -1,4 +1,6 @@
-import { IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsArray, IsOptional, IsString, MaxLength } from 'class-validator';
+import { Tag } from 'src/api/tags/tags-base.entity';
+import { Badge } from 'src/api/badges/badges.entity';
 
 export class UpdateUserDTO {
   @MaxLength(40)
@@ -29,4 +31,12 @@ export class UpdateUserDTO {
   @IsString()
   @IsOptional()
   githubHandle?: string;
+
+  @IsArray()
+  @IsOptional()
+  tags?: Tag[];
+
+  @IsArray()
+  @IsOptional()
+  badges?: Badge[];
 }

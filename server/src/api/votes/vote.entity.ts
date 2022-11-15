@@ -1,19 +1,20 @@
+import { User } from 'src/api/users/users.entity';
 import {
-  Column,
   CreateDateColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-export abstract class CommentBaseEntity {
+export class Vote {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  contents: string;
+  @ManyToOne(() => User)
+  voter: User;
 
   @CreateDateColumn()
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;

@@ -2,14 +2,19 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Answer } from '../answers/answers.entity';
 import { User } from '../users/users.entity';
+import { Tag } from '../tags/tags-base.entity';
+import { Answer } from '../answers/answers.entity';
 import { QuestionComment } from '../comments/question-comments/question-comments.entity';
+import { QuestionVote } from '../votes/question-votes/question-votes.entity';
+import { QuestionFollowing } from '../followings/question-following/question-following.entity';
 
 @Entity('questions')
 export class Question {
@@ -35,6 +40,20 @@ export class Question {
 
   @OneToMany(() => QuestionComment, (comment) => comment.question, {})
   comments: QuestionComment[];
+
+  @ManyToMany(() => Tag)
+  @JoinTable({ name: 'question_tags' })
+  tags: Tag[];
+
+  @OneToMany(() => QuestionVote, (vote) => vote.question, {
+    onDelete: 'CASCADE',
+  })
+  votes: QuestionVote[];
+
+  @OneToMany(() => QuestionFollowing, (following) => following.question, {
+    onDelete: 'CASCADE',
+  })
+  followers: QuestionFollowing[];
 
   // Timestamps //
   @CreateDateColumn()

@@ -25,6 +25,9 @@ export class QuestionsService {
     return this.questionsRepository.find({
       relations: {
         user: true,
+        followers: {
+          follower: true,
+        },
       },
     });
   }
@@ -78,10 +81,11 @@ export class QuestionsService {
       throw new UnauthorizedException();
     }
 
-    const { title, description } = updateQuestionDto;
+    const { title, description, tags } = updateQuestionDto;
 
     question.title = title || question.title;
     question.description = description || question.description;
+    question.tags = tags || question.tags;
 
     return this.questionsRepository.save(question);
   }

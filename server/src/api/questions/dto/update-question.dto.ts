@@ -1,4 +1,11 @@
-import { IsString, MinLength, MaxLength, IsOptional } from 'class-validator';
+import {
+  IsString,
+  MinLength,
+  MaxLength,
+  IsOptional,
+  IsArray,
+} from 'class-validator';
+import { Tag } from 'src/api/tags/tags-base.entity';
 
 export class UpdateQuestionDto {
   @IsString()
@@ -11,4 +18,8 @@ export class UpdateQuestionDto {
   @IsOptional()
   @MaxLength(1000)
   description?: string;
+
+  @IsArray()
+  @IsOptional()
+  tags?: Tag[];
 }
